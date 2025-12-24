@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MOIS.Common\MOIS.Common.csproj" />
+    <ProjectReference Include="..\..\..\MOIS.Shared.Core.Helper\MOIS.Shared.Core.Helper.csproj" />
+    <ProjectReference Include="..\MIOS.Management.Application\MIOS.Management.Application.csproj" />
+    <ProjectReference Include="..\MIOS.Management.Core\MIOS.Management.Core.csproj" />
+  </ItemGroup>
+
+</Project>

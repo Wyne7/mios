@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MIOS.Management.Application\MIOS.Management.Application.csproj" />
+    <ProjectReference Include="..\MIOS.Management.Core\MIOS.Management.Core.csproj" />
+    <ProjectReference Include="..\MIOS.Management.Infrastructure\MIOS.Management.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <None Update="ocelot.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
+</Project>
