@@ -67,6 +67,47 @@ namespace MIOS.Management.Infrastructure.Repository
             }
         }
 
+        public async Task<CodeMessage> AddUser(UserInfo user)
+        {
+            try
+            {
+                _logger.LogInformation("Creating a new user in database: {Email}", user.Email);
 
+                using (IDbConnection connection = _connectionFactory.createConnection(DatabaseConnections.USER))
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@name", user.UserName);
+                    parameters.Add("@email", user.Email);
+                    parameters.Add("@password", user.Password);
+
+                    // Execute stored procedure and get the generated ID
+                    int newId = await connection.QuerySingleAsync<int>(
+                        "CreateStudent",
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                    _logger.LogInformation("Successfully created user with ID: {UserId}", newId);
+
+                    // Return the CodeMessage indicating success
+                    return new CodeMessage
+                    {
+                        code = "200",
+                        Message = $"User created successfully with ID: {newId}"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating user in database");
+
+                // Return a CodeMessage indicating failure instead of crashing the Gateway
+                return new CodeMessage
+                {
+                    code = "500",
+                    Message = $"Error: {ex.Message}"
+                };
+            }
+        }
     }
 }

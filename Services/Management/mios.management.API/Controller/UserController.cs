@@ -51,7 +51,33 @@ namespace mios.management.API.Controller
             }
         }
 
-
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUser([FromForm] UserInfo info)
+        {
+            try
+            {
+                _logger.LogInformation("Save Student Controller Started. " + info.UserID);
+                var data = await _userRepository.SaveUser(info);
+                if (data != null)
+                {
+                    _logger.LogInformation("Save Student Controller Success. " + info.UserID);
+                    var response = _responseHandler.GetResponse<ResponseData>(ResponseEnum.R201);
+                    return Ok(new { code = response.code, message = response.message, data = data });
+                }
+                else
+                {
+                    _logger.LogInformation("Save Student Controller Finished. No Data. " + info.UserID);
+                    var res = _responseHandler.GetResponse<ResponseData>(ResponseEnum.R003);
+                    return Ok(new { code = res.code, message = res.message, data = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Save Student Controller Process Failed: " + ex.Message);
+                var response = _responseHandler.GetResponse<ResponseData>(ResponseEnum.R001);
+                return BadRequest(new { code = response.code, message = response.message, description = ex.Message });
+            }
+        }
 
 
 

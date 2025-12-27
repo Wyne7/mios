@@ -14,16 +14,32 @@ namespace ApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting();
+
+            // Ocelot
             services.AddOcelot(Configuration);
         }
 
-        // Must be async void or async Task for Ocelot
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // IMPORTANT: Do NOT call app.UseRouting() here. 
-            // It was already called in Program.cs
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("hello gateway");
+                });
+            });
+
+            // Ocelot MUST be last
             await app.UseOcelot();
         }
+    
     }
 }
