@@ -15,8 +15,9 @@ namespace MIOS.Management.Infrastructure
     
         public static void AddInfrastructureServices(this IServiceCollection services)
         {
-            // Register your infrastructure services here
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
     }
 }

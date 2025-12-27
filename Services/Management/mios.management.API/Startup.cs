@@ -21,7 +21,6 @@ namespace mios.management.API
         {
 
             services.AddControllers();
-            services.AddEndpointsApiExplorer();
             services.AddInfrastructureServices();
             services.AddScoped<IResponseHandler,ResponseHandler>();
             services.AddTransient<IDatabaseConnectionFactory>(e =>

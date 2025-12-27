@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace MIOS.Management.Application.Interfaces
 {
-    public interface IUserRepository
+    public interface IProductRepository
     {
-        Task<CodeMessage> SaveUser(UserInfo user);
-
-        Task<CodeMessage> AddUser(UserInfo user);
+        Task<CodeMessage> CreatePoduct(Product product);
     }
 }
